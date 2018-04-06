@@ -8,8 +8,7 @@ By Mid-May 2018, workable boilerplate with database abstraction layer. Will supp
 
 By Mid-June 2018, workable boilerplate with 3-server-cluster deployment script. Will support AWS with AWS default load balancer from the start. This also includes Docker image
 
-No promise in the future beyond these 3 months as the end goal is to faster development process.
-
+No promise in the future beyond these 3 months.
 ## Possible contributions
 - Integration with CircleCI.
 
