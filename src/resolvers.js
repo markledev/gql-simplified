@@ -1,15 +1,15 @@
 import { merge } from 'lodash'
 
 import AccountsEthereumResolvers from './accounts-ethereum/resolvers';
-import AccountsPasswordResolvers from './accounts-password/resolvers';
-import LandsResolvers from './lands/resolvers';
-import LeasesResolvers from './leases/resolvers';
+// import AccountsPasswordResolvers from './accounts-password/resolvers';
+// import LandsResolvers from './lands/resolvers';
+// import LeasesResolvers from './leases/resolvers';
 
-export const resolvers = merge(
+export default merge(
   AccountsEthereumResolvers,
-  AccountsPasswordResolvers,
-  LandsResolvers,
-  LeasesResolvers
+  // AccountsPasswordResolvers,
+  // LandsResolvers,
+  // LeasesResolvers
 );
 
 
