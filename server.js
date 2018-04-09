@@ -13,7 +13,7 @@ import { createServer } from 'http';
 import { SubscriptionServer } from 'subscriptions-transport-ws';
 import { MongoClient } from 'mongodb';
 const MONGO_URL = 'mongodb://localhost:27017';
-const DB_NAME = 'indorse_integration';
+const DB_NAME = 'indorse_registrations';
 
 
 const PORT = 4000;
