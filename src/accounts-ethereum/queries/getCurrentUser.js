@@ -1,4 +1,4 @@
-const getCurrentUser = (root, args) => {
+const getCurrentUser = (root, args, { db }) => {
 	return "Sample User";
 }
 
