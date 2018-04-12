@@ -25,10 +25,14 @@ MongoClient.connect(MONGO_URL, (err, client) => {
 	const db = client.db(DB_NAME);
 	server.use('*', cors({ origin: 'http://localhost:3000' }));
 
-	server.use('/graphql', bodyParser.json(), graphqlExpress({
-	  schema,
-	  context: { db }
-	}));
+	server.use('/graphql', bodyParser.json(), graphqlExpress(async (req, res, params) => ({
+		  schema,
+		  context: { 
+		  	db,
+		  	headers: req.headers
+		  }
+		})
+	));
 
 	server.use('/graphiql', graphiqlExpress({
 	  endpointURL: '/graphql',
