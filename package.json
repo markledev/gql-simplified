@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@cdm-logger/server": "^3.0.2",
+    "bcrypt": "^2.0.0",
     "body-parser": "^1.17.1",
     "bunyan": "^1.8.12",
     "cors": "^2.8.3",
@@ -30,6 +31,7 @@
     "graphql-server-module-graphiql": "^0.8.2",
     "graphql-subscriptions": "^0.4.3",
     "graphql-tools": "^1.0.0",
+    "jsonwebtoken": "^8.2.1",
     "merge-graphql-schemas": "^1.5.1",
     "mongodb": "^3.0.5",
     "subscriptions-transport-ws": "^0.7.3"

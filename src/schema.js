@@ -5,14 +5,14 @@ import {
 
 import resolvers from './resolvers';
 import { mergeTypes } from 'merge-graphql-schemas';
-import AccountsEthereumModels from './accounts-ethereum/models';
+import AccountsPasswordModels from './accounts-password/models';
 import SkillsModels from './skills/models';
 // import AccountsPasswordModels from './accounts-password/models';
 // import LandsModels from './lands/models';
 // import LeasesModels from './leases/models';
 
 const typeDefs = mergeTypes([
-  AccountsEthereumModels,
+  AccountsPasswordModels,
   SkillsModels,
   // AccountsPasswordModels,
   // LandsModels,
