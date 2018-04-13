@@ -18,7 +18,7 @@ const signUp = async (root, { name, email, password }, { db }) => {
 	// return user with jwt
 	const newUser = await db.collection('users').findOne({'email': email});
 	const token = await jwt.sign(newUser, 'test-password', {expiresIn: "7d"});
-
+	
 	return {
 		name: newUser.name,
 		email: newUser.email,

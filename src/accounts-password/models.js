@@ -12,7 +12,7 @@ export default `
 	}
 
 	type Mutation {
-		AccountsPasswordLogin: User
+		AccountsPasswordLogin(email: String, password: String): User
 		AccountsPasswordSignUp(name: String, password: String, email: String): User
 	}
 
