@@ -2,7 +2,7 @@ import { withFilter } from 'graphql-subscriptions';
 import { pubsub } from '../../pubsub';
 
 const getTenUsers = {
-	subscribe: () => pubsub.asyncIterator('AccountsEthereumGetTenUsers')
+	subscribe: () => pubsub.asyncIterator('likeSubscription')
 };
 
 // const getTenUsers = {

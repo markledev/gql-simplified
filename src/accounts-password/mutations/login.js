@@ -14,7 +14,10 @@ const login = async (root, { email, password }, { db }) => {
 
 	// get the user from db
 	const token = await jwt.sign(user, 'test-password', {expiresIn: "7d"});
+	//!TODO: Need to dynamically get data requested from graphQL query instead to save load.
 
+	pubsub.publish('likeSubscription', { likeSubscription: 'Jae just likes your new status' });
+	
 	return {
 		name: user.name,
 		email: user.email,

@@ -1,22 +1,21 @@
 export default `
 	type User {
-		_id: ID!
-		name: String
+		_id: String
+		username: String
 		email: String
-		password: String
-		jwt: String
+		role: String
+		name: String
 	}
 
 	type Query {
-		AccountsPasswordGetCurrentUser: User
+		getUser(email: String!): User
 	}
 
 	type Mutation {
-		AccountsPasswordLogin(email: String, password: String): User
-		AccountsPasswordSignUp(name: String, password: String, email: String): User
+		updateUser(email: String!, name: String!): User
 	}
 
 	type Subscription {
-		AccountsPasswordGetTenUsers: User
+		userUpdatedSub(email: String!): User
 	}
 `;
