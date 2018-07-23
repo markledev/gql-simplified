@@ -1,0 +1,37 @@
+/*
+ * {{ properCase name }} Messages
+ *
+ * This contains all the text for the {{ properCase name }} component.
+ */
+import { defineMessages } from 'react-intl';
+{{#if wantReduxForm}}
+import { fieldNames } from './model';
+{{/if}}
+
+{{#if wantReduxForm}}
+export default defineMessages({
+  [fieldNames.fieldOne]: {
+    id: 'graphql.{{properCase name}}.fieldOne',
+    defaultMessage: 'Field One',
+  },
+  [fieldNames.fieldTwo]: {
+    id: 'graphql.{{properCase name}}.fieldTwo',
+    defaultMessage: 'Field Two',
+  },
+  [fieldNames.inputOne]: {
+    id: 'graphql.{{properCase name}}.inputOne',
+    defaultMessage: 'Input One',
+  }
+});
+{{else}}
+export default defineMessages({
+  fieldOne: {
+    id: 'graphql.{{properCase name}}.fieldOne',
+    defaultMessage: 'Field One',
+  },
+  fieldTwo: {
+    id: 'graphql.{{properCase name}}.fieldTwo',
+    defaultMessage: 'Field Two',
+  }
+});
+{{/if}}

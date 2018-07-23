@@ -1,0 +1,127 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import autoBind from 'react-autobind';
+import { Helmet } from 'react-helmet';
+import classnames from 'classnames';
+import { injectIntl, FormattedMessage } from 'react-intl';
+import { reduxForm, Field } from 'redux-form';
+import PropTypes from 'prop-types';
+{{#if wantReduxForm}}
+import { fieldNames } from './model';
+import TextField from 'ui/common/form/fields/text-field';
+{{/if}}
+
+import {
+  selectValueOne,
+  selectValueTwo,
+  selectIndPrice
+} from 'store/features/{{dashCase storeFeature}}/selectors';
+
+import {
+  fetchIndorsePriceAPI,
+  dispatchOne
+} from 'store/features/{{dashCase storeFeature}}/actions';
+
+import Loading from 'ui/common/loading';
+
+import styles from './index.module.scss';
+import messages from './messages';
+
+const { request: fetchIndorsePriceAPIRequest } = fetchIndorsePriceAPI;
+
+class {{properCase containerName}} extends Component {
+  constructor(props) {
+    super(props);
+
+    autoBind(this);
+  }
+
+  componentDidMount() {
+    const { fetchIndorsePriceAPIRequest } = this.props;
+    fetchIndorsePriceAPIRequest({ ticker: 'bitcoin' });
+  }
+
+  renderHelmet() {
+    return (
+      <Helmet>
+        <title>Custom new SEO title</title>
+      </Helmet>
+    );
+  }
+
+  render() {
+    const { 
+      valueOne, 
+      valueTwo, 
+      indPrice,
+      {{#if wantReduxForm}}
+      intl: { formatMessage }
+      {{/if}}
+    } = this.props;
+    return (
+      <div>
+        {this.renderHelmet()}
+        <div className="row">
+          <div className="col-12 text-center">  
+            {{#if wantReduxForm}}
+            <FormattedMessage {...messages[fieldNames.fieldOne]}/>
+            {valueOne}
+            <FormattedMessage {...messages[fieldNames.fieldTwo]}/>
+            {valueTwo}
+            <div>
+            <Field
+              name={fieldNames.fieldOne}
+              component={TextField}
+              label={formatMessage(messages[fieldNames.fieldOne])}
+            />
+            </div>
+            {{else}}
+            <FormattedMessage {...messages.fieldOne}/>
+            {valueOne}
+            <FormattedMessage {...messages.fieldTwo}/>
+            {valueTwo}
+            {{/if}}
+            <div className={classnames(styles.classOne)}>
+              Indorse price - {indPrice} USD
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
+
+function mapStateToProps(state, ownProps) {
+  const valueOne = selectValueOne(state);
+  const valueTwo = selectValueTwo(state);
+  const indPrice = selectIndPrice(state);
+
+  return {
+    valueOne,
+    valueTwo,
+    indPrice,
+    {{#if wantReduxForm}}
+    // initialValues
+    {{/if}}
+  };
+}
+
+const mapDispatchToProps = {
+  fetchIndorsePriceAPIRequest,
+};
+
+{{properCase containerName}}.propTypes = {
+  propOne: PropTypes.String
+}
+
+
+{{#if wantReduxForm}}
+export default connect(mapStateToProps, mapDispatchToProps)(
+  reduxForm({
+    form: '{{dashCase containerName}}'
+  })(injectIntl({{properCase containerName}}))
+);
+{{else}}
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl({{properCase containerName}}));
+{{/if}}
+

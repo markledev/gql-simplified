@@ -1,0 +1,25 @@
+import Immutable from 'seamless-immutable';
+
+import * as actionTypes from './action-types';
+import _ from 'lodash';
+
+const initialState = Immutable({
+  todos: [],
+  error: false,
+});
+
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
+    case actionTypes.CREATE_BADGE_ERROR: {
+      const { error } = action.payload;
+      return state.set('error', error);
+    }
+
+    case actionTypes.CREATE_BADGE_SUCCESS: {
+      return state.set('error', false);
+    }
+
+    default:
+      return state;
+  }
+}

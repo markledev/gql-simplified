@@ -1,0 +1,8 @@
+import { createSelector } from 'reselect';
+
+const select{{properCase name}}State = state => state.graphql.{{properCase name}};
+
+export const selectError = createSelector(
+  select{{properCase name}}State,
+  (state, props) => state.error
+);
