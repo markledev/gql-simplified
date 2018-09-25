@@ -6,6 +6,7 @@
   "scripts": {
     "start": "nodemon bin/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "generate": "plop --plopfile generators/index.js",
     "build": "babel src --presets babel-preset-es2015 --out-dir distribution-src"
   },
   "author": "",
@@ -38,6 +39,8 @@
     "jsonwebtoken": "^8.2.1",
     "merge-graphql-schemas": "^1.5.1",
     "mongodb": "^3.0.5",
+    "object-assign-deep": "^0.4.0",
+    "plop": "^2.1.0",
     "subscriptions-transport-ws": "^0.7.3"
   }
 }

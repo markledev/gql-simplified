@@ -11,54 +11,31 @@ const getAllParentContainers = require('../utils/getAllParentContainers');
 const getAllContainers = require('../utils/getAllContainers');
 const getAllStoreFeatures = require('../utils/getAllStoreFeatures');
 const generateNewRouteTemplates = require('../utils/generateNewRouteTemplates');
-const routeTemplates = require('../../src/ui/common/routes/templates');
 
-const originalText = fs.readFileSync(
-  path.join(__dirname, '../../src/ui/common/routes/templates.js'),
-  'utf8'
-);
 module.exports = {
-  description: 'Add a new container/page (with or without redux form)',
+  description: 'Add new graphql mutation',
   prompts: [
     {
       type: 'list',
       name: 'routeLevelOne',
-      message: 'Select TOP ROUTE LEVEL where you will put the container inside',
+      message: 'Select the module where you want to put the mutation',
       choices: () => getAllParentContainers(),
     },
     {
-      type: 'list',
-      name: 'routeLevelTwo',
-      message: 'Select INNER ROUTE LEVEL where you would like to put component in',
-      choices: data => getAllContainers(data.routeLevelOne),
-    },
-    {
       type: 'input',
-      name: 'containerName',
-      message: 'What should this container be called?',
-      default: 'Form',
+      name: 'mutationName',
+      message: 'What should this mutation be called?',
+      default: 'updateUser',
       validate: (value, data) => {
         if (/.+/.test(value)) {
-          return containerExists(data.routeLevelOne, data.routeLevelTwo, value)
-            ? 'A container with this name already exists'
+          return containerExists(data.routeLevelOne, value)
+            ? 'A mutation with this name already exists in this module'
             : true;
         }
 
         return 'The name is required';
       },
-    },
-    {
-      type: 'confirm',
-      name: 'wantReduxForm',
-      default: true,
-      message: 'Do you want to use redux form for this container?',
-    },
-    {
-      type: 'list',
-      name: 'storeFeature',
-      message: 'Select existing REDUX STORE which will be used in this container',
-      choices: () => getAllStoreFeatures(),
-    },
+    }
   ],
   actions: data => {
     // Generate index.js and index.test.js
@@ -145,14 +122,6 @@ module.exports = {
       camelCase(data.containerName),
       routeTemplates
     );
-
-    actions.push({
-      type: 'modify',
-      path: `../src/ui/common/routes/templates.js`,
-      pattern: originalText,
-      template: `module.exports = ${JSON.stringify(newJson, null, 2)}`,
-      abortOnFail: true,
-    });
 
     return actions;
   },

@@ -9,10 +9,10 @@ const path = require('path');
 
 function getAllParentContainers() {
   const arr = fs
-    .readdirSync(path.join(__dirname, '../../src/ui'))
-    .filter(folder => ['.DS_Store', 'common'].indexOf(folder) < 0);
+    .readdirSync(path.join(__dirname, '../../src'))
+    .filter(folder => ['.DS_Store', 'common', 'pubsub.js', 'resolvers.js', 'schema.js'].indexOf(folder) < 0);
 
-  arr.unshift('.');
+  // arr.unshift('.');
   return arr;
 }
 

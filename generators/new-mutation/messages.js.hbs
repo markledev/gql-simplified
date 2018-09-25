@@ -11,26 +11,22 @@ import { fieldNames } from './model';
 {{#if wantReduxForm}}
 export default defineMessages({
   [fieldNames.fieldOne]: {
-    id: 'graphql.{{properCase name}}.fieldOne',
+    id: '{{camelCase routeLevelOne}}.{{#if routeLevelTwo}}{{camelCase routeLevelTwo}}.{{/if}}{{camelCase containerName}}.fieldOne',
     defaultMessage: 'Field One',
   },
   [fieldNames.fieldTwo]: {
-    id: 'graphql.{{properCase name}}.fieldTwo',
+    id: '{{camelCase routeLevelOne}}.{{#if routeLevelTwo}}{{camelCase routeLevelTwo}}.{{/if}}{{camelCase containerName}}.fieldTwo',
     defaultMessage: 'Field Two',
-  },
-  [fieldNames.inputOne]: {
-    id: 'graphql.{{properCase name}}.inputOne',
-    defaultMessage: 'Input One',
   }
 });
 {{else}}
 export default defineMessages({
   fieldOne: {
-    id: 'graphql.{{properCase name}}.fieldOne',
+    id: '{{camelCase routeLevelOne}}.{{#if routeLevelTwo}}{{camelCase routeLevelTwo}}.{{/if}}{{camelCase containerName}}.fieldOne',
     defaultMessage: 'Field One',
   },
   fieldTwo: {
-    id: 'graphql.{{properCase name}}.fieldTwo',
+    id: '{{camelCase routeLevelOne}}.{{#if routeLevelTwo}}{{camelCase routeLevelTwo}}.{{/if}}{{camelCase containerName}}.fieldTwo',
     defaultMessage: 'Field Two',
   }
 });
