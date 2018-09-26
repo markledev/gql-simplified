@@ -11,6 +11,7 @@ export default `
 	type Mutation {
 		SkillsAddNewSkill(text: String): Skill
 		SkillsRemoveSkillById(id: Int): Skill
+		# new_mutation (Do not remove this line)
 	}
 
 	type Subscription {
