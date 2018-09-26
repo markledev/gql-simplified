@@ -1,11 +1,11 @@
 import { withFilter } from 'graphql-subscriptions';
 import { pubsub } from '../../pubsub';
 
-const getTenUsers = {
+const {{camelCase firstSub}} = {
 	subscribe: () => pubsub.asyncIterator('likeSubscription')
 };
 
-// const getTenUsers = {
+// const {{camelCase firstSub}} = {
 // 	subscribe: withFilter(
 // 		() => pubsub.asyncIterator('likeSubscription'),
 // 		(payloads, variables) => {
@@ -14,4 +14,4 @@ const getTenUsers = {
 // 	)
 // };
 
-export default getTenUsers;
+export default {{camelCase firstSub}};
