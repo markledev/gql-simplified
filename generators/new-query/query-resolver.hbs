@@ -1,6 +1,6 @@
 import { pubsub } from '../../pubsub';
 
-const {{camelCase mutationName}} = (root, { arg1, arg2 }, { db, headers }) => {
+const {{camelCase queryName}} = (root, { arg1, arg2 }, { db, headers }) => {
 	/*
 		In case you need to publish message for real-time reactivity feature
 		pubsub.publish('likeSubscription', { likeSubscription: 'Jae just likes your new status' });
@@ -19,4 +19,4 @@ const {{camelCase mutationName}} = (root, { arg1, arg2 }, { db, headers }) => {
 	return `${arg1}_${arg2}`;
 }
 
-export default {{camelCase mutationName}};
+export default {{camelCase queryName}};

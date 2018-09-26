@@ -13,133 +13,66 @@ const getAllStoreFeatures = require('../utils/getAllStoreFeatures');
 const generateNewRouteTemplates = require('../utils/generateNewRouteTemplates');
 
 module.exports = {
-  description: 'Add a new container/page (with or without redux form)',
+  description: 'Add new graphql query',
   prompts: [
     {
       type: 'list',
       name: 'routeLevelOne',
-      message: 'Select TOP ROUTE LEVEL where you will put the container inside',
+      message: 'Select the module where you want to put the query',
       choices: () => getAllParentContainers(),
     },
     {
-      type: 'list',
-      name: 'routeLevelTwo',
-      message: 'Select INNER ROUTE LEVEL where you would like to put component in',
-      choices: data => getAllContainers(data.routeLevelOne),
-    },
-    {
       type: 'input',
-      name: 'containerName',
-      message: 'What should this container be called?',
-      default: 'Form',
+      name: 'queryName',
+      message: 'What should this query be called?',
+      default: 'getUserById',
       validate: (value, data) => {
         if (/.+/.test(value)) {
-          return containerExists(data.routeLevelOne, data.routeLevelTwo, value)
-            ? 'A container with this name already exists'
+          return containerExists(data.routeLevelOne, value)
+            ? 'A query with this name already exists in this module'
             : true;
         }
 
         return 'The name is required';
       },
-    },
-    {
-      type: 'confirm',
-      name: 'wantReduxForm',
-      default: true,
-      message: 'Do you want to use redux form for this container?',
-    },
-    {
-      type: 'list',
-      name: 'storeFeature',
-      message: 'Select existing REDUX STORE which will be used in this container',
-      choices: () => getAllStoreFeatures(),
-    },
+    }
   ],
   actions: data => {
-    // Generate index.js and index.test.js
-
     const actions = [];
-
-    if (data.routeLevelTwo === '.') {
-      data.routeLevelTwo = false;
-    }
-
-    /*-- ADDING REACT_RELATED FILES --*/
+    /*-- ADDING query_RESOLVER FILE --*/
     actions.push({
       type: 'add',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}/{{dashCase containerName}}/index.js`,
-      templateFile: './container/class.js.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/queries/{{camelCase queryName}}.js`,
+      templateFile: './new-query/query-resolver.hbs',
       abortOnFail: true,
     });
 
-    actions.push({
-      type: 'add',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}/{{dashCase containerName}}/loadable.js`,
-      templateFile: './container/loadable.js.hbs',
-      abortOnFail: true,
-    });
-
-    actions.push({
-      type: 'add',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}/{{dashCase containerName}}/messages.js`,
-      templateFile: './container/messages.js.hbs',
-      abortOnFail: true,
-    });
-
-    actions.push({
-      type: 'add',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}/{{dashCase containerName}}/index.module.scss`,
-      templateFile: './container/index.module.scss.hbs',
-      abortOnFail: true,
-    });
-
-    if (data.wantReduxForm) {
-      actions.push({
-        type: 'add',
-        path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-          ? ''
-          : '{{dashCase routeLevelTwo}}/'}{{dashCase containerName}}/model.js`,
-        templateFile: './container/model.js.hbs',
-        abortOnFail: true,
-      });
-    }
-
+    /* INSERT import statement @ <routeLevelOne>/queries/index.js */
     actions.push({
       type: 'modify',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}index.js`,
-      pattern: '// import-new-container',
-      templateFile: './container/import-new-container.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/queries/index.js`,
+      pattern: '// import_new_query (Do not modify/delete this line)',
+      templateFile: './new-query/import-new-query.hbs',
       abortOnFail: true,
     });
 
+    /* INSERT key and value inside query Object @ <routeLevelOne>/queries/index.js */
     actions.push({
       type: 'modify',
-      path: `../src/ui/{{dashCase routeLevelOne}}/${!data.routeLevelTwo
-        ? ''
-        : '{{dashCase routeLevelTwo}}/'}/index.js`,
-      pattern: '{/* add-new-container */}',
-      templateFile: './container/add-new-container.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/queries/index.js`,
+      pattern: '// add_new_query (Do not modify/delete this line)',
+      templateFile: './new-query/add-new-query.hbs',
       abortOnFail: true,
     });
 
-    const routeArr = [];
-    if (data.routeLevelOne) routeArr.push(camelCase(data.routeLevelOne));
-    if (data.routeLevelTwo) routeArr.push(camelCase(data.routeLevelTwo));
-    const newJson = generateNewRouteTemplates(
-      routeArr,
-      camelCase(data.containerName),
-      routeTemplates
-    );
+    /* INSERT model definition @ <routeLevelOne>/model.js */
+    actions.push({
+      type: 'modify',
+      path: `../src/{{camelCase routeLevelOne}}/models.js`,
+      pattern: '# new_query (Do not remove this line)',
+      templateFile: './new-query/new-query-in-model.hbs',
+      abortOnFail: true,
+    });
 
     return actions;
   },

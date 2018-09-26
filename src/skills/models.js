@@ -6,6 +6,7 @@ export default `
 
 	type Query {
 		SkillsGetAllSkills: [Skill]
+		# new_query (Do not remove this line)
 	}
 
 	type Mutation {
