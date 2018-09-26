@@ -1,0 +1,15 @@
+export default `
+	type Query {
+		{{camelCase moduleName}}_{{camelCase firstQuery}}(arg1: String, arg2: String): String
+		# new_query (Do not remove this line)
+	}
+
+	type Mutation {
+		{{camelCase moduleName}}_{{camelCase firstMutation}}(arg1: String, arg2: String): String
+		# new_mutation (Do not remove this line)
+	}
+
+	type Subscription {
+		{{camelCase moduleName}}_{{camelCase firstSub}}(arg1: String, arg2: String): String
+	}
+`;

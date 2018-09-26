@@ -1,2 +1,7 @@
-<Route path={routeTemplates.{{#if moduleName}}{{camelCase moduleName}}.{{/if}}{{#if routeLevelTwo}}{{camelCase routeLevelTwo}}.{{/if}}{{camelCase containerName}} } component={ {{properCase containerName}} } />
-				{/* add-new-container */}
+import {{camelCase firstSub}} from './{{camelCase firstSub}}';
+
+export default {
+	Subscription: {
+		{{camelCase moduleName}}_{{camelCase firstSub}}: {{camelCase firstSub}}
+	}
+};
