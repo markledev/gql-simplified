@@ -15,8 +15,6 @@ const typeDefs = mergeTypes([
   SkillsModels,
 	jobRolesModels,
 	// add-new-schema (Do not remove/modify this line)
-
-
   ], { all: true });
 
 const schema = makeExecutableSchema({ typeDefs, resolvers });
