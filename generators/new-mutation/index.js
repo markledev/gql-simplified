@@ -38,10 +38,11 @@ module.exports = {
     }
   ],
   actions: data => {
+    const actions = [];
     /*-- ADDING MUTATION_RESOLVER FILE --*/
     actions.push({
       type: 'add',
-      path: `../src/{{camelCase routeLevelOne}}/mutations/{{camelCase mutationName}}`,
+      path: `../src/{{camelCase routeLevelOne}}/mutations/{{camelCase mutationName}}.js`,
       templateFile: './new-mutation/mutation-resolver.hbs',
       abortOnFail: true,
     });
@@ -67,7 +68,7 @@ module.exports = {
     /* INSERT model definition @ <routeLevelOne>/model.js */
     actions.push({
       type: 'modify',
-      path: `../src/{{camelCase routeLevelOne}}/model.js`,
+      path: `../src/{{camelCase routeLevelOne}}/models.js`,
       pattern: '# new_mutation (Do not remove this line)',
       templateFile: './new-mutation/new-mutation-in-model.hbs',
       abortOnFail: true,

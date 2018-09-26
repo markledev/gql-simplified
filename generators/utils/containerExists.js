@@ -11,7 +11,7 @@ function containerExists(routeLevelOne, routeLevelTwo, comp) {
   const containers = fs.readdirSync(
     path.join(
       __dirname,
-      `../../src/ui/${routeLevelOne}${routeLevelTwo !== '.' ? '/' + routeLevelTwo : ''}`
+      `../../src/${routeLevelOne}`
     )
   );
   return containers.indexOf(comp) >= 0;

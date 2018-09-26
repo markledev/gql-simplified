@@ -13,7 +13,7 @@ import SkillsModels from './skills/models';
 
 const typeDefs = mergeTypes([
   AccountsPasswordModels,
-  // SkillsModels,
+  SkillsModels,
   // AccountsPasswordModels,
   // LandsModels,
   // LeasesModels

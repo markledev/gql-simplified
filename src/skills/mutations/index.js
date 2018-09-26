@@ -5,7 +5,7 @@ import removeSkillById from './removeSkillById';
 export default {
 	Mutation: {
 		SkillsAddNewSkill: addNewSkill,
-		SkillsRemoveSkillById: removeSkillById,
+		SkillsRemoveSkillById: removeSkillById,			
 		// add_new_mutation (Do not modify/delete this line)
 	}
 }
