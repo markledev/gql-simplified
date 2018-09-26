@@ -9,5 +9,6 @@ module.exports = plop => {
   plop.setGenerator('new-query', newQueryGenerator);
   plop.setGenerator('new-module', newModuleGenerator);
   plop.setGenerator('new-mutation', newMutationGenerator);
+  plop.setGenerator('new-subscription', newSubscriptionGenerator);
   plop.addHelper('curly', (object, open) => (open ? '{' : '}'));
 };

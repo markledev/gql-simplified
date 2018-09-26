@@ -13,23 +13,23 @@ const getAllStoreFeatures = require('../utils/getAllStoreFeatures');
 const generateNewRouteTemplates = require('../utils/generateNewRouteTemplates');
 
 module.exports = {
-  description: 'Add new graphql query',
+  description: 'Add new graphql subscription',
   prompts: [
     {
       type: 'list',
       name: 'routeLevelOne',
-      message: 'Select the module where you want to put the query',
+      message: 'Select the module where you want to put the subscription',
       choices: () => getAllParentContainers(),
     },
     {
       type: 'input',
-      name: 'queryName',
-      message: 'What should this query be called?',
-      default: 'getUserById',
+      name: 'subscriptionName',
+      message: 'What should this subscription be called?',
+      default: 'statusChange',
       validate: (value, data) => {
         if (/.+/.test(value)) {
           return containerExists(data.routeLevelOne, value)
-            ? 'A query with this name already exists in this module'
+            ? 'A subscription with this name already exists in this module'
             : true;
         }
 
@@ -39,29 +39,29 @@ module.exports = {
   ],
   actions: data => {
     const actions = [];
-    /*-- ADDING query_RESOLVER FILE --*/
+    /*-- ADDING subscription_RESOLVER FILE --*/
     actions.push({
       type: 'add',
-      path: `../src/{{camelCase routeLevelOne}}/queries/{{camelCase queryName}}.js`,
-      templateFile: './new-query/query-resolver.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/subscriptions/{{camelCase subscriptionName}}.js`,
+      templateFile: './new-subscription/subscription-resolver.hbs',
       abortOnFail: true,
     });
 
-    /* INSERT import statement @ <routeLevelOne>/queries/index.js */
+    /* INSERT import statement @ <routeLevelOne>/subscriptions/index.js */
     actions.push({
       type: 'modify',
-      path: `../src/{{camelCase routeLevelOne}}/queries/index.js`,
-      pattern: '// import_new_query (Do not modify/delete this line)',
-      templateFile: './new-query/import-new-query.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/subscriptions/index.js`,
+      pattern: '// import_new_subscription (Do not modify/delete this line)',
+      templateFile: './new-subscription/import-new-subscription.hbs',
       abortOnFail: true,
     });
 
-    /* INSERT key and value inside query Object @ <routeLevelOne>/queries/index.js */
+    /* INSERT key and value inside subscription Object @ <routeLevelOne>/subscriptions/index.js */
     actions.push({
       type: 'modify',
-      path: `../src/{{camelCase routeLevelOne}}/queries/index.js`,
-      pattern: '// add_new_query (Do not modify/delete this line)',
-      templateFile: './new-query/add-new-query.hbs',
+      path: `../src/{{camelCase routeLevelOne}}/subscriptions/index.js`,
+      pattern: '// add_new_subscription (Do not modify/delete this line)',
+      templateFile: './new-subscription/add-new-subscription.hbs',
       abortOnFail: true,
     });
 
@@ -69,8 +69,8 @@ module.exports = {
     actions.push({
       type: 'modify',
       path: `../src/{{camelCase routeLevelOne}}/models.js`,
-      pattern: '# new_query (Do not remove this line)',
-      templateFile: './new-query/new-query-in-model.hbs',
+      pattern: '# new_subscription (Do not remove this line)',
+      templateFile: './new-subscription/new-subscription-in-model.hbs',
       abortOnFail: true,
     });
 

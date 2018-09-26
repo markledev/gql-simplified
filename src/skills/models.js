@@ -17,5 +17,7 @@ export default `
 
 	type Subscription {
 		SkillsGetNewlyAddedSkill: Skill
+		skills_hellyeah(arg1: String, arg2: String): String
+		# new_subscription (Do not remove this line)
 	}
 `;
